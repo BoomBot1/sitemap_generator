@@ -102,8 +102,12 @@ final class SiteMapGenerator
 
     private function formatData(): void
     {
+        $pages = [];
+
         foreach ($this->pages as $page) {
             $page['lastmod'] = $page['lastmod']->format('Y-m-d');
+            $pages[] = $page;
         }
+        $this->pages = $pages;
     }
 }
