@@ -1,10 +1,14 @@
 {
+  "name": "major/sitemapgenerator",
+  "description": "Sitemap generator as test task for pyrobyte",
+
   "autoload": {
     "psr-4": {
       "TestPackage\\": "src/"
     }
   },
   "require": {
-    "ext-xmlwriter": "*"
+    "ext-xmlwriter": "*",
+    "php": ">=8.2"
   }
 }
