@@ -43,48 +43,11 @@ final class FormatXML implements FormatInterface
         $xml->startElement('url');
 
         $xml->writeElement('loc', $page['loc']);
-        $xml->writeElement('lastmod', $this->formatDate($page['lastmod']));
-        $xml->writeElement('priority', $this->formatPriority($page['priority']));
+        $xml->writeElement('lastmod', $page['lastmod']);
+        $xml->writeElement('priority', $page['priority']);
         $xml->writeElement('changefreq', $page['changefreq']);
 
         $xml->endElement();
-    }
-
-    private function formatDate($date): string
-    {
-        if ($date instanceof \DateTimeInterface) {
-            return $date->format('Y-m-d');
-        }
-
-        if (is_numeric($date)) {
-            return date('Y-m-d', (int)$date);
-        }
-
-        if (is_string($date) && ($timestamp = strtotime($date)) !== false) {
-            return date('Y-m-d', $timestamp);
-        }
-
-        return (string)$date;
-    }
-
-    private function formatPriority($priority): string
-    {
-        if (is_int($priority) || (is_float($priority) && $priority == (int)$priority)) {
-            return (string)(int)$priority;
-        }
-
-        if (is_float($priority)) {
-            return number_format($priority, 1, '.', '');
-        }
-
-        if (is_string($priority) && is_numeric($priority)) {
-            $floatVal = (float)$priority;
-            return ($floatVal == (int)$floatVal)
-                ? (string)(int)$floatVal
-                : number_format($floatVal, 1, '.', '');
-        }
-
-        return (string)$priority;
     }
 
     /**

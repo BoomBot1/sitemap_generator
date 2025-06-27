@@ -2,6 +2,7 @@
 
 namespace TestPackage\Format;
 
+use DateTime;
 use TestPackage\Exceptions\FileException;
 use Throwable;
 
@@ -17,6 +18,10 @@ final class FormatJSON implements FormatInterface
         } catch (Throwable $e) {
             throw FileException::failure($e->getMessage());
         }
+    }
 
+    private function formatDateTime(DateTime $date): string
+    {
+        return (string)$date->format('Y-m-d');
     }
 }

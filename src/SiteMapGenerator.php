@@ -55,6 +55,7 @@ final class SiteMapGenerator
     public function generate(): void
     {
         $this->validate();
+        $this->formatData();
         $this->setDir($this->outputPath);
         $this->formatClass->generate($this->pages, $this->outputPath);
     }
@@ -63,7 +64,7 @@ final class SiteMapGenerator
      * @throws DataFieldsValidationException
      * @throws DataValidationException
      */
-    public function validate(): void
+    private function validate(): void
     {
         foreach ($this->pages as $page) {
             if (!array_keys($page) == $this->fields) {
@@ -84,7 +85,7 @@ final class SiteMapGenerator
     /**
      * @throws DirectoryException
      */
-    public function setDir(string $filePath): void
+    private function setDir(string $filePath): void
     {
         $dir = dirname($filePath);
 
@@ -96,6 +97,13 @@ final class SiteMapGenerator
             } catch (Throwable $e) {
                 throw DirectoryException::failure($e->getMessage());
             }
+        }
+    }
+
+    private function formatData(): void
+    {
+        foreach ($this->pages as $page) {
+            $page['lastmod'] = $page['lastmod']->format('Y-m-d');
         }
     }
 }
