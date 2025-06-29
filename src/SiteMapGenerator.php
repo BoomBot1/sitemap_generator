@@ -50,7 +50,7 @@ final class SiteMapGenerator
             'changefreq',
         ];
 
-        $this->formatClass = $format->getFormatClass();
+        $this->formatClass = $format->getGeneratorClass();
         $this->pages = $pages;
         $this->outputPath = $outputPath;
     }

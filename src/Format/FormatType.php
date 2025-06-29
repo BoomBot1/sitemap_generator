@@ -8,7 +8,7 @@ enum FormatType: string
     case JSON = 'json';
     case CSV = 'csv';
 
-    public function getFormatClass(): GeneratorInterface
+    public function getGeneratorClass(): GeneratorInterface
     {
         switch ($this) {
             case self::XML:
