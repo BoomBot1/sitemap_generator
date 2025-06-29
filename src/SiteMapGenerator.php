@@ -9,15 +9,16 @@ use TestPackage\Exceptions\DirectoryException;
 use TestPackage\Exceptions\FileException;
 use TestPackage\Exceptions\FormatToFileException;
 use TestPackage\Exceptions\FormatValidationException;
-use TestPackage\Format\FormatInterface;
+use TestPackage\Format\GeneratorInterface;
 use TestPackage\Format\FormatType;
 use TestPackage\Support\ChangeFreqType;
+use TestPackage\Support\DataHandler;
 use Throwable;
 
 final class SiteMapGenerator
 {
     public array $pages;
-    public FormatInterface $formatClass;
+    public GeneratorInterface $formatClass;
     private string $outputPath;
     private array $fields;
 
@@ -54,32 +55,10 @@ final class SiteMapGenerator
      */
     public function generate(): void
     {
-        $this->validate();
-        $this->formatData();
+        DataHandler::validateData($this->pages, $this->fields);
+        $this->pages = DataHandler::formatData($this->pages);
         $this->setDir($this->outputPath);
         $this->formatClass->generate($this->pages, $this->outputPath);
-    }
-
-    /**
-     * @throws DataFieldsValidationException
-     * @throws DataValidationException
-     */
-    private function validate(): void
-    {
-        foreach ($this->pages as $page) {
-            if (!array_keys($page) == $this->fields) {
-                throw DataFieldsValidationException::failure(array_keys($page), $this->fields);
-            }
-
-            if (
-                !filter_var($page['loc'], FILTER_VALIDATE_URL)
-                || !$page['lastmod'] instanceof DateTime
-                || !filter_var($page['priority'], FILTER_VALIDATE_FLOAT)
-                || !ChangeFreqType::tryFrom($page['changefreq'])
-            ) {
-                throw DataValidationException::failure($page);
-            }
-        }
     }
 
     /**

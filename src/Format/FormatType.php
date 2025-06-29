@@ -8,15 +8,15 @@ enum FormatType: string
     case JSON = 'json';
     case CSV = 'csv';
 
-    public function getFormatClass(): FormatInterface
+    public function getFormatClass(): GeneratorInterface
     {
         switch ($this) {
             case self::XML:
-                return new FormatXML();
+                return new GeneratorXML();
             case self::JSON:
-                return new FormatJSON();
+                return new GeneratorJSON();
             case self::CSV:
-                return new FormatCSV();
+                return new GeneratorCSV();
         }
     }
 }
