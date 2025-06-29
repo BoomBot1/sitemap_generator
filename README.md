@@ -1,4 +1,4 @@
-Using:
+# Using:
 * Init SiteMapGenerator class via passing argumets (documented). Use generate() function from object (SiteMapGenerator).
 
 # If u need to add extensions or manipulate data validation\data formatting:
