@@ -15,6 +15,9 @@ use TestPackage\Support\ChangeFreqType;
 use TestPackage\Support\DataHandler;
 use Throwable;
 
+/**
+ * Class that controls the whole thing.
+ */
 final class SiteMapGenerator
 {
     public array $pages;
@@ -24,8 +27,8 @@ final class SiteMapGenerator
 
     /**
      * @param array $pages Array via pages to write down to the file.
-     * @param string $formatType pass the type of format u need.
-     * @param string $outputPath the output path of file (via file, ext of file must the same as $formatType)
+     * @param string $formatType pass the format type u need.
+     * @param string $outputPath the output path (With a file. File's extension must be the same as $formatType)
      *
      * @throws FormatValidationException
      * @throws FormatToFileException
@@ -46,12 +49,15 @@ final class SiteMapGenerator
             'priority',
             'changefreq',
         ];
+
         $this->formatClass = $format->getFormatClass();
         $this->pages = $pages;
         $this->outputPath = $outputPath;
     }
 
     /**
+     * Orchestrates file creation
+     *
      * @throws DataFieldsValidationException
      * @throws DirectoryException
      * @throws FileException

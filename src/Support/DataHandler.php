@@ -6,6 +6,10 @@ use DateTime;
 use TestPackage\Exceptions\DataFieldsValidationException;
 use TestPackage\Exceptions\DataValidationException;
 
+
+/**
+ * Validates and format data.
+ */
 final class DataHandler
 {
     /**
