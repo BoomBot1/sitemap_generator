@@ -23,6 +23,10 @@ final class SiteMapGenerator
     private array $fields;
 
     /**
+     * @param array $pages Array via pages to write down to the file.
+     * @param string $formatType pass the type of format u need.
+     * @param string $outputPath the output path of file (via file, ext of file must the same as $formatType)
+     *
      * @throws FormatValidationException
      * @throws FormatToFileException
      */
@@ -77,16 +81,5 @@ final class SiteMapGenerator
                 throw DirectoryException::failure($e->getMessage());
             }
         }
-    }
-
-    private function formatData(): void
-    {
-        $pages = [];
-
-        foreach ($this->pages as $page) {
-            $page['lastmod'] = $page['lastmod']->format('Y-m-d');
-            $pages[] = $page;
-        }
-        $this->pages = $pages;
     }
 }
